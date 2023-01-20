@@ -111,4 +111,55 @@ onMounted(() => {
   </main>
 </template>
 
-<style></style>
+<style>
+<style > * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Fira Sans", sans-serif;
+}
+body {
+  background-color: #eee;
+}
+main {
+  margin: 0 auto;
+  max-width: 768px;
+  padding: 1.5rem;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+form {
+  display: flex;
+  max-width: 480px;
+  margin: 0 auto 1.5rem;
+}
+form input {
+  appearance: none;
+  outline: none;
+  border: none;
+  background: white;
+  display: block;
+  color: #888;
+  font-size: 1.125rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+.button {
+  appearance: none;
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: block;
+  padding: 0.5rem 1rem;
+  background-image: linear-gradient(to right, deeppink 50%, darkviolet 50%);
+  background-size: 200%;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: 0.4s;
+}
+</style>
