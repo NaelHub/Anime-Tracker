@@ -46,10 +46,69 @@ const decreaseWatch = (anime) => {
   anime.watched_episodes--;
   localStorage.setItem("my_anime", JSON.stringify(my_anime.value));
 };
+
+onMounted(() => {
+  my_anime.value = JSON.parse(localStorage.getItem("my_anime")) || [];
+});
 </script>
 
 <template>
-  <main>Hello, World!</main>
+  <main>
+    <h1>My Anime Tracker</h1>
+
+    <form @submit.prevent="searchAnime">
+      <input
+        type="text"
+        placeholder="Search for an anime..."
+        v-model="query"
+        @input="handleInput"
+      />
+      <button type="submit" class="button">Search</button>
+    </form>
+
+    <div class="results" v-if="search_results.length > 0">
+      <div v-for="anime in search_results" class="result">
+        <img :src="anime.images.jpg.image_url" />
+        <div class="details">
+          <h3>{{ anime.title }}</h3>
+          <p :title="anime.synopsis" v-if="anime.synopsis">
+            {{ anime.synopsis.slice(0, 120) }}...
+          </p>
+          <span class="flex-1"></span>
+          <button @click="addAnime(anime)" class="button">
+            Add to My Anime
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="myanime" v-if="my_anime.length > 0">
+      <h2>My Anime</h2>
+
+      <div v-for="anime in my_anime_asc" class="anime">
+        <img :src="anime.image" />
+        <h3>{{ anime.title }}</h3>
+        <div class="flex-1"></div>
+        <span class="episodes"
+          >{{ anime.watched_episodes }} / {{ anime.total_episodes }}</span
+        >
+        <button
+          v-if="anime.total_episodes !== anime.watched_episodes"
+          @click="increaseWatch(anime)"
+          class="button"
+        >
+          +
+        </button>
+        <button
+          v-if="anime.watched_episodes > 0"
+          @click="decreaseWatch(anime)"
+          class="button"
+        >
+          -
+        </button>
+      </div>
+    </div>
+  </main>
 </template>
 
 <style></style>
