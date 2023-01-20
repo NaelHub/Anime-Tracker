@@ -20,6 +20,32 @@ const searchAnime = () => {
       search_results.value = data.data;
     });
 };
+
+const handleInput = (e) => {
+  if (!e.target.value) {
+    search_results.value = [];
+  }
+};
+const addAnime = (anime) => {
+  search_results.value = [];
+  query.value = "";
+  my_anime.value.push({
+    id: anime.mal_id,
+    title: anime.title,
+    image: anime.images.jpg.image_url,
+    total_episodes: anime.episodes,
+    watched_episodes: 0,
+  });
+  localStorage.setItem("my_anime", JSON.stringify(my_anime.value));
+};
+const increaseWatch = (anime) => {
+  anime.watched_episodes++;
+  localStorage.setItem("my_anime", JSON.stringify(my_anime.value));
+};
+const decreaseWatch = (anime) => {
+  anime.watched_episodes--;
+  localStorage.setItem("my_anime", JSON.stringify(my_anime.value));
+};
 </script>
 
 <template>
