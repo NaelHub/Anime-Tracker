@@ -1,17 +1,13 @@
 <script setup>
-import { createReturnStatement } from "@vue/compiler-core";
-import { ref, computed, onMounted } from "vue";
-
+import { ref, onMounted, computed } from "vue";
 const query = ref("");
 const my_anime = ref([]);
 const search_results = ref([]);
-
 const my_anime_asc = computed(() => {
   return my_anime.value.sort((a, b) => {
-    createReturnStatement.title.localCompate(b.title);
+    return a.title.localeCompare(b.title);
   });
 });
-
 const searchAnime = () => {
   const url = `https://api.jikan.moe/v4/anime?q=${query.value}`;
   fetch(url)
@@ -20,7 +16,6 @@ const searchAnime = () => {
       search_results.value = data.data;
     });
 };
-
 const handleInput = (e) => {
   if (!e.target.value) {
     search_results.value = [];
@@ -46,7 +41,6 @@ const decreaseWatch = (anime) => {
   anime.watched_episodes--;
   localStorage.setItem("my_anime", JSON.stringify(my_anime.value));
 };
-
 onMounted(() => {
   my_anime.value = JSON.parse(localStorage.getItem("my_anime")) || [];
 });
@@ -112,7 +106,7 @@ onMounted(() => {
 </template>
 
 <style>
-<style > * {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -162,7 +156,6 @@ form input {
   text-transform: uppercase;
   transition: 0.4s;
 }
-
 .button:hover {
   background-position: right;
 }
